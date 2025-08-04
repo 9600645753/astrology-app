@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrology App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .zodiac-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .zodiac-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .zodiac-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome">
+            <h1>🌟 Astrology App</h1>
+            <div class="card">
+                <div class="emoji">🌙</div>
+                <h2>Welcome to Your Cosmic Journey</h2>
+                <p>Discover your daily horoscope and explore the mysteries of the stars!</p>
+            </div>
+            <button class="button" onclick="showDashboard()">Get Started ✨</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="hidden">
+            <h1>🌟 Dashboard</h1>
+            <div class="card">
+                <h2>Choose Your Path</h2>
+            </div>
+            <button class="button" onclick="showHoroscope()">📅 Daily Horoscope</button>
+            <button class="button" onclick="showBirthChart()">⭐ Birth Chart</button>
+            <button class="button" onclick="showCompatibility()">💕 Compatibility</button>
+            <button class="button" onclick="showWelcome()">🏠 Home</button>
+        </div>
+
+        <!-- Horoscope Screen -->
+        <div id="horoscope" class="hidden">
+            <h1>📅 Daily Horoscope</h1>
+            <div class="card">
+                <h2>Select Your Zodiac Sign</h2>
+            </div>
+            <div class="zodiac-grid">
+                <div class="zodiac-card" onclick="showReading('Aries')">
+                    <div class="emoji">♈</div>
+                    <div>Aries</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Taurus')">
+                    <div class="emoji">♉</div>
+                    <div>Taurus</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Gemini')">
+                    <div class="emoji">♊</div>
+                    <div>Gemini</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Cancer')">
+                    <div class="emoji">♋</div>
+                    <div>Cancer</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Leo')">
+                    <div class="emoji">♌</div>
+                    <div>Leo</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Virgo')">
+                    <div class="emoji">♍</div>
+                    <div>Virgo</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Libra')">
+                    <div class="emoji">♎</div>
+                    <div>Libra</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Scorpio')">
+                    <div class="emoji">♏</div>
+                    <div>Scorpio</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Sagittarius')">
+                    <div class="emoji">♐</div>
+                    <div>Sagittarius</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Capricorn')">
+                    <div class="emoji">♑</div>
+                    <div>Capricorn</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Aquarius')">
+                    <div class="emoji">♒</div>
+                    <div>Aquarius</div>
+                </div>
+                <div class="zodiac-card" onclick="showReading('Pisces')">
+                    <div class="emoji">♓</div>
+                    <div>Pisces</div>
+                </div>
+            </div>
+            <button class="button" onclick="showDashboard()">← Back</button>
+        </div>
+
+        <!-- Birth Chart Screen -->
+        <div id="birthchart" class="hidden">
+            <h1>⭐ Birth Chart</h1>
+            <div class="card">
+                <h2>Enter Your Details</h2>
+                <br>
+                <input type="text" placeholder="Full Name" style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none;">
+                <input type="date" style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none;">
+                <input type="time" style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none;">
+                <input type="text" placeholder="City, Country" style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none;">
+                <br><br>
+                <button class="button" onclick="alert('Birth chart feature coming soon!')">Generate Chart</button>
+            </div>
+            <button class="button" onclick="showDashboard()">← Back</button>
+        </div>
+
+        <!-- Compatibility Screen -->
+        <div id="compatibility" class="hidden">
+            <h1>💕 Compatibility</h1>
+            <div class="card">
+                <h2>Find Your Match</h2>
+                <br>
+                <select style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none;">
+                    <option>Select Your Sign</option>
+                    <option>Aries</option>
+                    <option>Taurus</option>
+                    <option>Gemini</option>
+                    <option>Cancer</option>
+                    <option>Leo</option>
+                    <option>Virgo</option>
+                    <option>Libra</option>
+                    <option>Scorpio</option>
+                    <option>Sagittarius</option>
+                    <option>Capricorn</option>
+                    <option>Aquarius</option>
+                    <option>Pisces</option>
+                </select>
+                <select style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none;">
+                    <option>Partner's Sign</option>
+                    <option>Aries</option>
+                    <option>Taurus</option>
+                    <option>Gemini</option>
+                    <option>Cancer</option>
+                    <option>Leo</option>
+                    <option>Virgo</option>
+                    <option>Libra</option>
+                    <option>Scorpio</option>
+                    <option>Sagittarius</option>
+                    <option>Capricorn</option>
+                    <option>Aquarius</option>
+                    <option>Pisces</option>
+                </select>
+                <br><br>
+                <button class="button" onclick="alert('85% Compatible! 💕')">Check Compatibility</button>
+            </div>
+            <button class="button" onclick="showDashboard()">← Back</button>
+        </div>
+
+        <!-- Reading Screen -->
+        <div id="reading" class="hidden">
+            <h1>🔮 Your Reading</h1>
+            <div class="card">
+                <div class="emoji">✨</div>
+                <h2 id="sign-name">Aries</h2>
+                <p id="horoscope-text">Today brings new opportunities your way!</p>
+            </div>
+            <button class="button" onclick="showHoroscope()">← Back to Signs</button>
+        </div>
+    </div>
+
+    <script>
+        function hideAll() {
+            document.getElementById('welcome').classList.add('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('horoscope').classList.add('hidden');
+            document.getElementById('birthchart').classList.add('hidden');
+            document.getElementById('compatibility').classList.add('hidden');
+            document.getElementById('reading').classList.add('hidden');
+        }
+
+        function showWelcome() {
+            hideAll();
+            document.getElementById('welcome').classList.remove('hidden');
+        }
+
+        function showDashboard() {
+            hideAll();
+            document.getElementById('dashboard').classList.remove('hidden');
+        }
+
+        function showHoroscope() {
+            hideAll();
+            document.getElementById('horoscope').classList.remove('hidden');
+        }
+
+        function showBirthChart() {
+            hideAll();
+            document.getElementById('birthchart').classList.remove('hidden');
+        }
+
+        function showCompatibility() {
+            hideAll();
+            document.getElementById('compatibility').classList.remove('hidden');
+        }
+
+        function showReading(sign) {
+            hideAll();
+            document.getElementById('sign-name').textContent = sign;
+            
+            const horoscopes = {
+                'Aries': 'Today brings exciting new beginnings! Your energy is high and opportunities await.',
+                'Taurus': 'Focus on stability today. Your patience will be rewarded with lasting success.',
+                'Gemini': 'Communication is key today. Share your ideas and connect with others.',
+                'Cancer': 'Trust your intuition today. Your emotional intelligence guides you well.',
+                'Leo': 'Shine bright today! Your confidence attracts positive attention.',
+                'Virgo': 'Attention to detail pays off today. Your practical approach solves problems.',
+                'Libra': 'Balance is important today. Seek harmony in all your relationships.',
+                'Scorpio': 'Deep insights come to you today. Trust your powerful intuition.',
+                'Sagittarius': 'Adventure calls today! Expand your horizons and explore new possibilities.',
+                'Capricorn': 'Your hard work is paying off. Stay focused on your long-term goals.',
+                'Aquarius': 'Innovation is your strength today. Think outside the box.',
+                'Pisces': 'Your creativity flows freely today. Let your imagination guide you.'
+            };
+            
+            document.getElementById('horoscope-text').textContent = horoscopes[sign] || 'The stars have a special message for you today!';
+            document.getElementById('reading').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
